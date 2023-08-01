@@ -154,7 +154,7 @@ def get_network(args):
         from models.stochasticdepth import stochastic_depth_resnet101
         net = stochastic_depth_resnet101()
     elif args.net == 'prune':
-        net = torch.load(args.weights)
+        net = torch.load("./checkpoint/pruned_model.pt")
     else:
         print('the network name you have entered is not supported yet')
         sys.exit()
