@@ -63,9 +63,6 @@ net_accuracy = []
 print('==> Testing model on Cifar100...')
 print('------------------RESNET152------------------')
 
-# get time testing
-import time
-start_time = time.time()
 
 with torch.no_grad():
     for batch_idx, (inputs, targets) in enumerate(testloader):
@@ -83,7 +80,6 @@ with torch.no_grad():
         progress_bar(batch_idx, len(testloader), 'ResNet152 Test Loss: %.3f | ResNet152 Test Acc: %.3f%% (%d/%d)'
                      % (net_loss / (batch_idx + 1), 100. * net_correct / net_total, net_correct, net_total))
 
-print("ResNet152 total inference time in average: %s seconds." % ((time.time() - start_time)/net_total))
 
 # sort net_accuracy in descending order
 net_accuracy.sort(reverse=False)
@@ -96,7 +92,6 @@ pruned_correct = 0
 pruned_total = 0
 pruned_accuracy = []
 
-start_time = time.time()
 
 with torch.no_grad():
     for batch_idx, (inputs, targets) in enumerate(testloader):
@@ -114,7 +109,6 @@ with torch.no_grad():
         progress_bar(batch_idx, len(testloader), 'Pruned ResNet152 Test Loss: %.3f | Pruned ResNet152 Test Acc: %.3f%% (%d/%d)'
                      % (pruned_loss / (batch_idx + 1), 100. * pruned_correct / pruned_total, pruned_correct, pruned_total))
 
-print("Pruned ResNet152 inference time in average: %s seconds." % ((time.time() - start_time)/pruned_total))
 
 pruned_accuracy.sort(reverse=False)
 
