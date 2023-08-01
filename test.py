@@ -29,7 +29,6 @@ if __name__ == '__main__':
     parser.add_argument('-prune', action='store_true', default=False, help='Prune or not')
     args = parser.parse_args()
 
-    net = get_network(args)
 
     cifar100_test_loader = get_test_dataloader(
         settings.CIFAR100_TRAIN_MEAN,
@@ -41,8 +40,9 @@ if __name__ == '__main__':
     if args.prune == True:
         net = torch.load(args.weights)
     else:
+        net = get_network(args)
         net.load_state_dict(torch.load(args.weights))
-        
+
     net.eval()
 
     correct_1 = 0.0
