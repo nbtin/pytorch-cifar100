@@ -7,7 +7,7 @@ of a model
 
 author baiyu
 """
-
+import time
 import argparse
 
 from matplotlib import pyplot as plt
@@ -49,6 +49,8 @@ if __name__ == '__main__':
     correct_5 = 0.0
     total = 0
 
+    start_time = time.time()
+
     with torch.no_grad():
         for n_iter, (image, label) in enumerate(cifar100_test_loader):
             print("iteration: {}\ttotal {} iterations".format(n_iter + 1, len(cifar100_test_loader)))
@@ -76,7 +78,10 @@ if __name__ == '__main__':
         # print('GPU INFO.....')
         # print(torch.cuda.memory_summary(), end='')
 
+    end_time = time.time()
+
     print()
     print("Top 1 err: ", 1 - correct_1 / len(cifar100_test_loader.dataset))
     print("Top 5 err: ", 1 - correct_5 / len(cifar100_test_loader.dataset))
+    print("Inference time: ", end_time - start_time)
     print("Parameter numbers: {}".format(sum(p.numel() for p in net.parameters())))
